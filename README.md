@@ -57,7 +57,7 @@ Also i used
 spring.jpa.hibernate.ddl-auto=update
 which mean it will create table by itself on first run from model class and only change if you change the model class.
 
-I have used Bcrypt to store password
+I have used BCrypt to store password
 
 Happy learning
 
