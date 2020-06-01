@@ -1,0 +1,67 @@
+Microsoft Windows [Version 10.0.18362.535]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\WINDOWS\system32>D:
+
+D:\>cd D:\Software\eclipse\workspace\social-media-v2\src\main\resources
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -genkeypair -alias searsTest -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore2.p12 -validity 3650 -storepass password
+What is your first and last name?
+  [Unknown]:
+What is the name of your organizational unit?
+  [Unknown]:
+What is the name of your organization?
+  [Unknown]:
+What is the name of your City or Locality?
+  [Unknown]:
+What is the name of your State or Province?
+  [Unknown]:
+What is the two-letter country code for this unit?
+  [Unknown]:
+Is CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown correct?
+  [no]:  yes
+
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -keystore keystore1.p12 -alias tomcat -file myCertificate.crt
+keytool error: java.io.IOException: Invalid keystore format
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -keystore keystore1.p12 -alias tomcat -rfc -file myCertificate.crt
+keytool error: java.io.IOException: Invalid keystore format
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -storetype pkcs12 -keystore keystore2.p12 -alias searsTest -rfc -file searsDemo.crt
+Enter keystore password:
+Certificate stored in file <myCertificate.crt>
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -importcert -file myCertificate.crt -alias tomcat -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
+Enter keystore password:
+keytool error: java.io.IOException: Keystore was tampered with, or password was incorrect
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -importcert -file searsDemo.crt -alias searsTest -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
+Enter keystore password:
+Owner: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Issuer: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Serial number: cd2c3bf
+Valid from: Mon Jun 01 20:02:12 IST 2020 until: Thu May 30 20:02:12 IST 2030
+Certificate fingerprints:
+         MD5:  03:A7:B4:CC:52:54:96:08:46:57:40:BD:28:5B:AC:22
+         SHA1: CF:6A:79:42:86:0A:C1:A0:8E:40:A9:0A:4B:EF:58:CA:EE:24:6A:33
+         SHA256: 7F:64:DD:A4:8A:59:49:93:68:C8:96:62:09:36:00:B7:F5:77:BA:A5:D6:CE:05:DA:48:71:4B:71:C0:0F:25:DB
+         Signature algorithm name: SHA256withRSA
+         Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 9F FD 11 16 91 97 A3 B3   53 AB 6F B1 DF 87 FC 24  ........S.o....$
+0010: 88 A8 43 0B                                        ..C.
+]
+]
+
+Trust this certificate? [no]:  yes
+Certificate was added to keystore
+
+D:\Software\eclipse\workspace\social-media-v2\src\main\resources>
+
+https://stackoverflow.com/questions/47535131/spring-boot-after-https-the-tomcat-connector-configured-to-listen-on-port-8444
