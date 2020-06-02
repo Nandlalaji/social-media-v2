@@ -1,11 +1,8 @@
 Microsoft Windows [Version 10.0.18362.535]
 (c) 2019 Microsoft Corporation. All rights reserved.
 
-C:\WINDOWS\system32>D:
 
-D:\>cd D:\Software\eclipse\workspace\social-media-v2\src\main\resources
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -genkeypair -alias searsTest -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore2.p12 -validity 3650 -storepass password
+D:\social-media-v2\src\main\resources>keytool -genkeypair -alias searsTest -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore keystore2.p12 -validity 3650 -storepass password
 What is your first and last name?
   [Unknown]:
 What is the name of your organizational unit?
@@ -21,22 +18,11 @@ What is the two-letter country code for this unit?
 Is CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown correct?
   [no]:  yes
 
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -keystore keystore1.p12 -alias tomcat -file myCertificate.crt
-keytool error: java.io.IOException: Invalid keystore format
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -keystore keystore1.p12 -alias tomcat -rfc -file myCertificate.crt
-keytool error: java.io.IOException: Invalid keystore format
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -export -storetype pkcs12 -keystore keystore2.p12 -alias searsTest -rfc -file searsDemo.crt
+D:\social-media-v2\src\main\resources>keytool -export -storetype pkcs12 -keystore keystore2.p12 -alias searsTest -rfc -file searsDemo.crt
 Enter keystore password:
 Certificate stored in file <myCertificate.crt>
 
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -importcert -file myCertificate.crt -alias tomcat -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
-Enter keystore password:
-keytool error: java.io.IOException: Keystore was tampered with, or password was incorrect
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>keytool -importcert -file searsDemo.crt -alias searsTest -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
+D:\social-media-v2\src\main\resources>keytool -importcert -file searsDemo.crt -alias searsTest -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
 Enter keystore password:
 Owner: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
 Issuer: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
@@ -61,7 +47,3 @@ KeyIdentifier [
 
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
-
-D:\Software\eclipse\workspace\social-media-v2\src\main\resources>
-
-https://stackoverflow.com/questions/47535131/spring-boot-after-https-the-tomcat-connector-configured-to-listen-on-port-8444
