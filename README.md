@@ -1,6 +1,12 @@
 # social-media-v2
-This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security and JWT to achieve backend of simple social-media application.
+This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security JWT and https to achieve backend of simple social-media application.
 
+Before we start the server, we need to get SSL certificate.SSL certificate is issued by a trusted Certificate Authority (CA). But for our learning purpose we can go with self signed certificate. For creating self signed certificate, you can follow command in src/main/resources/ssl.txt. 
+First we need to create key. Key are of two type .jks and .p12. i have used .p12. Once that is created add that key to cacerts in jre/lib/security/cacerts.
+when you hit the url below it will show untrusted certificate. it is because you have created it. you can click on advanced button(crome) and accept the trust. 
+Also when you hit the below URL it will route to https://localhost:8443 this is not the part of certificate but the spring security where tomcat is routing request to secure port. 
+
+use below command to start server.
 mvn spring-boot:run
 Use above commond in cmd to start your application.
 
@@ -61,5 +67,5 @@ I have used BCrypt to store password
 
 Happy learning
 
-planning to implement https and redis in this next.
+planning to implement redis in this next.
 
