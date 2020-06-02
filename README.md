@@ -1,13 +1,18 @@
 # social-media-v2
-This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security JWT and https to achieve backend of simple social-media application.
+This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security, JWT and https to achieve backend of simple social-media application.
 
 Before we start the server, we need to get SSL certificate.SSL certificate is issued by a trusted Certificate Authority (CA). But for our learning purpose we can go with self signed certificate. For creating self signed certificate, you can follow command in src/main/resources/ssl.txt. 
+
 First we need to create key. Key are of two type .jks and .p12. i have used .p12. Once that is created add that key to cacerts in jre/lib/security/cacerts.
+
 when you hit the url below it will show untrusted certificate. it is because you have created it. you can click on advanced button(crome) and accept the trust. 
+
 Also when you hit the below URL it will route to https://localhost:8443 this is not the part of certificate but the spring security where tomcat is routing request to secure port. 
 
 use below command to start server.
+
 mvn spring-boot:run
+
 Use above commond in cmd to start your application.
 
 Following are the URL to use in this application
@@ -55,12 +60,15 @@ I have use H2 DB and load some default value. so once you start the application 
 
 localhost:8080/h2-console
 User Name: nand
+
 Password: nandApplication
 
 in resource you can find data.sql to see queries for default values. Also i have use file(~/data/demo) to store the value.So, if you keep on adding info and restart the server you will get the old data. But be careful the id should not be as in default data otherwise it will be override by default value. so use id not use in default id value in data.sql. Although i have use default increment of id. but this is incase you manipulate data in DB manually.
 
 Also i used
+
 spring.jpa.hibernate.ddl-auto=update
+
 which mean it will create table by itself on first run from model class and only change if you change the model class.
 
 I have used BCrypt to store password
