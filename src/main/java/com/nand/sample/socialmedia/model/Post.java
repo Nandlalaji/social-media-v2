@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,16 +22,16 @@ import javax.persistence.Table;
 public class Post implements Comparable<Post> {
 
 	@Id
-    @GeneratedValue
-	Integer postId;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Integer postId;
 	
-	String content;
+	private String content;
 
-	LocalDateTime dateTime;
+	private LocalDateTime dateTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name="userId")
-	User user; 
+	private User user; 
 
 	public User getUser() {
 		return user;

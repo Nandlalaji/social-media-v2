@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
@@ -27,14 +28,14 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 public class User implements Comparable<User> {
 
 	@Id
-    @GeneratedValue
-	Integer userId;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Integer userId;
 
-	String name;
+	private String name;
 	
-	String password;
+	private String password;
 
-	String email;
+	private String email;
 	
 	@OneToMany(targetEntity=Post.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)    
 	private Set<Post> posts;
