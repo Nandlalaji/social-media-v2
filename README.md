@@ -13,7 +13,7 @@ mvn spring-boot:run
 Open your Postman API. Go to Setting(option top right) -> General
 You will find ssl certificate verification button on. Turn it off. 
 
-Dont worry, Since i have loaded some data using data.sql while starting server. you will find result with below URL. Also i have used H2 file to store Data. so next when you start server it will only over missing default value(used ON DUPLICATE KEY)
+Dont worry, Since i have loaded some data using data.sql while starting server. you will find result with below URL. Also i have used H2 file to store Data. so next when you start server it will only overwrite missing default value(used ON DUPLICATE KEY)
 
 Following are the URL to use in this application 
 
@@ -36,8 +36,11 @@ for generating JWT. post following URL(use postman) https://localhost:8443/authe
 
 The above json request is already there in H2 default values. You will get key in response.Use that in other post/delete request header
 
-Header - "Authorization":"Bearer keyfromRespone"
-		"Content-Type": "application/json"
+Header -
+	
+	 "Authorization":"Bearer keyfromRespone"
+		
+	 "Content-Type": "application/json"
 
 Remember key value in header should start with Bearer space. the key is valid for 5 * 60 * 60. After that you have to generate key again.
 
