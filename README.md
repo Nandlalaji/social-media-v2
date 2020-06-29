@@ -36,7 +36,9 @@ for generating JWT. post following URL(use postman) https://localhost:8443/authe
 
 The above json request is already there in H2 default values. You will get key in response.Use that in other post/delete request header
 
-Header - "Authorization":"Bearer keyfromRespone"
+Header -
+	
+	 "Authorization":"Bearer keyfromRespone"
 		
 	 "Content-Type": "application/json"
 
