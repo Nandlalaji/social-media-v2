@@ -1,65 +1,68 @@
-# social-media-v2
-This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security, JWT and https to achieve backend of simple social-media application.
+This is bit enhanced version of simple social-media application( https://github.com/Nandlalaji/social-media ). i have used spring boot, H2, Spring data, Spring security, JWT and https to achieve backend of simple social-media application. I have also used spring boot test and mockito to do junit testing using mvcMock.
 
-Before we start the server, we need to get SSL certificate.SSL certificate is issued by a trusted Certificate Authority (CA). But for our learning purpose we can go with self signed certificate. For creating self signed certificate, you can follow command in src/main/resources/ssl.txt. 
+Before we start the server, we need to get SSL certificate.SSL certificate is issued by a trusted Certificate Authority (CA). But for our learning purpose we can go with self signed certificate. For creating self signed certificate, you can follow command in src/main/resources/ssl.txt. I have already created it so no need to worry about it now
 
-First we need to create key. Key are of two type .jks and .p12. i have used .p12. Once that is created add that key to cacerts in jre/lib/security/cacerts.
+For our testing we will we using Postman Api(not the web version, there is not option for ssl certification verification)
 
-when you hit the url below it will show untrusted certificate. it is because you have created it. you can click on advanced button(crome) and accept the trust. 
-
-Also when you hit the below URL it will route to https://localhost:8443 this is not the part of certificate but the spring security where tomcat is routing request to secure port. 
+Though we are using postman api. But if we try GET request in web browser(chrome), it will show untrusted certificate(since self-certificate is not trusted in browser). you can click on advanced button(chrome) and accept the trust. Also when you hit Get URL with http://localhost:8080 it will route to https://localhost:8443 this is not the part of certificate but the spring security where tomcat is routing request to secure port.
 
 use below command to start server.
 
 mvn spring-boot:run
 
-Use above commond in cmd to start your application.
+Open your Postman API. Go to Setting(option top right) -> General
+You will find ssl certificate verification button on. Turn it off. 
 
-Following are the URL to use in this application
+Dont worry, Since i have loaded some data using data.sql while starting server. you will find result with below URL. Also i have used H2 file to store Data. so next when you start server it will only over missing default value(used ON DUPLICATE KEY)
+
+Following are the URL to use in this application 
+
 GET request 
-localhost:8080/getAllPost
 
-localhost:8080/getAllUser
 
-localhost:8080/getUserNewFeed/{userId}    - userId is integer value
+https://localhost:8443/getAllPost
 
-localhost:8080/getfollower/{followeeId}    - followeeId is integer value
+https://localhost:8443/getAllUser
 
-Note - before i provide post request url, i should inform, i have used JWT so until you dont have JWT key you cant use post url. But you are good with get url with JWT
+https://localhost:8443/getUserNewFeed/{userId} - userId is integer value
 
-for generating JWT.
-post following URL(use postman)
-localhost:8080/authenticate
-Header -  "Content-Type":"application/json"
-Request body :
-{
-	"email":"testUser11@gmail.com",
-	"password":"password11"
-}
+https://localhost:8443/getHomeNewFeed/{userId} - userId is integer value
 
-The above json request is already there in H2 default values. so once you start the sever this value will be there in DB.
-You will get key in response.Use that in other post request header
+https://localhost:8443/getfollower/{followeeId} - followeeId is integer value
+
+Note - before i provide post request url, i should inform, i have used JWT so until you dont have JWT key you cant use post url. But you are good with GET url without JWT key
+
+for generating JWT. post following URL(use postman) https://localhost:8443/authenticate Header - "Content-Type":"application/json" Request body : { "email":"testUser11@gmail.com", "password":"password11" }
+
+The above json request is already there in H2 default values. You will get key in response.Use that in other post/delete request header
 
 Header - "Authorization":"Bearer keyfromRespone"
+		"Content-Type": "application/json"
 
-Remember key value in header should start with Bearer space.
-the key is valid for 5 * 60 * 60. After that you have to generate key again.
-POST URL-
-localhost:8080/inputNewPost/{userId}/{content}    - no Request body. userId is integer and content is string value for post
-
-localhost:8080/inputNewUser      - Request body should be json as follow
-{"name":"provide your UserName","password":"provide your password","email":"provide email id"}
-
-localhost:8080/follow/{followeeId}/{followerId} - no Request body, both followeeId and followerId are integer value
-
-localhost:8080/unfollow/{followeeId}/{unfollowerId}  -no Request body, both followeeId and followerId are integer value
+Remember key value in header should start with Bearer space. the key is valid for 5 * 60 * 60. After that you have to generate key again.
 
 
-More about this application
-I have use H2 DB and load some default value. so once you start the application and run above urls you will get some value. you can access H2 DB by
+POST URL- 
 
-localhost:8080/h2-console
-User Name: nand
+
+https://localhost:8443/inputNewPost/{userId}/{content} - no Request body. userId is integer and content is string value for post
+
+https://localhost:8443/inputNewUser - Request body should be json as follow {"name":"provide your UserName","password":"provide your password","email":"provide email id"}
+
+https://localhost:8443/follow/{followeeId}/{followerId} - no Request body, both followeeId and followerId are integer value
+
+
+DELETE URL - 
+
+https://localhost:8443/removeUser/{userId}  - userId is integer value
+
+https://localhost:8443/removePost/{postId}   -postId is integer value
+
+https://localhost:8443/unfollow/{followeeId}/{unfollowerId} - both followeeId and followerId are integer value
+
+More about this application I have use H2 DB and load some default value. so once you start the application and run above urls you will get some value. you can access H2 DB by
+
+localhost:8080/h2-console User Name: nand
 
 Password: nandApplication
 
@@ -73,7 +76,8 @@ which mean it will create table by itself on first run from model class and only
 
 I have used BCrypt to store password
 
+Note- i have not used jackson mapper class to convert response into json. passing string in json way formating in response for now. i can implement it in next commit. Also i will resolve n+1 hibernate issue in commit 
+
 Happy learning
 
 planning to implement redis in this next.
-

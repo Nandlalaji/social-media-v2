@@ -2,11 +2,13 @@ package com.nand.sample.socialmedia.service;
 
 import java.util.Set;
 
+import com.nand.sample.socialmedia.exception.SocialMediaDAOException;
+import com.nand.sample.socialmedia.exception.SocialMediaRuntimeException;
 import com.nand.sample.socialmedia.model.Post;
 import com.nand.sample.socialmedia.model.User;
 
 /**
- * Interface to hold method related to simple social media 
+ * Interface to hold method related to simple social media
  * 
  * @author Nand
  * @since 23th Sept 2019
@@ -21,27 +23,27 @@ public interface SocialMediaService {
 	 * @return
 	 * @throws Exception
 	 */
-	void createPost(Integer userId, String content) throws Exception;
+	void createPost(Integer userId, String content) throws SocialMediaDAOException,SocialMediaRuntimeException;
 
 	/**
-	 * Get New Feed which user has posted recently.
-	 * Posts are sorted with date it posted
+	 * Get New Feed which user has posted recently. Posts are sorted with date
+	 * it posted
 	 * 
 	 * @param userId
 	 * @return
 	 * @throws Exception
 	 */
-	String getUserNewsFeed(User userTogetNew) throws Exception;
-	
+	String getUserNewsFeed(User userTogetNew) throws SocialMediaDAOException,SocialMediaRuntimeException;
+
 	/**
-	 * Get New Feed which user and its follower has posted recently.
-	 * Posts are sorted with date it posted
+	 * Get New Feed which user and its follower has posted recently. Posts are
+	 * sorted with date it posted
 	 * 
 	 * @param userId
 	 * @return
 	 * @throws Exception
 	 */
-	String getHomeNewsFeed(User userTogetNew) throws Exception;
+	String getHomeNewsFeed(User userTogetNew) throws SocialMediaDAOException,SocialMediaRuntimeException;
 
 	/**
 	 * User can follow any user
@@ -51,7 +53,7 @@ public interface SocialMediaService {
 	 * @return
 	 * @throws Exception
 	 */
-	Set<User>  follow(User followee, User follower) throws Exception;
+	Set<User> follow(User followee, User follower) throws SocialMediaDAOException,SocialMediaRuntimeException;
 
 	/**
 	 * User can unfollow any user
@@ -61,32 +63,56 @@ public interface SocialMediaService {
 	 * @return
 	 * @throws Exception
 	 */
-	Set<User> unfollow(User followee, User follower) throws Exception;
+	Set<User> unfollow(User followee, User follower) throws SocialMediaDAOException,SocialMediaRuntimeException;
 
 	/**
-	 * User id is assigned via logic and is not input by user
-	 * creates new user
+	 * User id is assigned via logic and is not input by user creates new user
 	 * 
 	 * @param user
 	 */
-	void setusers(User user);
+	void setusers(User user) throws Exception;
 
 	/**
 	 * get all users
+	 * 
 	 * @return
 	 */
-	Iterable<User> getAllUsers();
+	Iterable<User> getAllUsers()throws Exception;
 
 	/**
 	 * get all post
+	 * 
 	 * @return
 	 */
-	Iterable<Post> getAllPost();
-	
+	Iterable<Post> getAllPost() throws Exception;
+
 	/**
 	 * get user object by userId
+	 * 
 	 * @return
 	 */
+	User getUserByUserID(Integer userId) throws SocialMediaDAOException;
 	
-	User getUserByUserID(Integer userId);
+	/**
+	 * get Post object by postId
+	 * 
+	 * @return
+	 */
+	Post getPostByPostID(Integer postId) throws Exception;
+	
+	/**
+	 * remove user object by userId
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	void removeUser(Integer userId) throws Exception;
+	
+	/**
+	 * remove user object by userId
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	void removePost(Integer postId) throws Exception;
 }

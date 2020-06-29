@@ -1,3 +1,15 @@
+I highly recommend to read following articles to know about https concept.
+https://dzone.com/articles/ssl-in-java#:~:text=Certs%20are%20data%20files%20that,certificates%20onto%20your%20web%20server.
+
+https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
+
+First we need to create key. Key are of two type .jks and .p12. i have used .p12. 
+Once that is created add that key to cacerts in jre/lib/security/cacerts.
+
+Below is screenshot of my cmd when i created it.
+
+------------------------------------------------------------------------
+
 Microsoft Windows [Version 10.0.18362.535]
 (c) 2019 Microsoft Corporation. All rights reserved.
 
@@ -23,7 +35,7 @@ Enter keystore password:
 Certificate stored in file <myCertificate.crt>
 
 D:\social-media-v2\src\main\resources>keytool -importcert -file searsDemo.crt -alias searsTest -keystore C:/Progra~1/Java/jdk1.8.0_171/jre/lib/security/cacerts
-Enter keystore password:
+Enter keystore password:   (type changeit ) you wont see anything while typing
 Owner: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
 Issuer: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
 Serial number: cd2c3bf
