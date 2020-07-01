@@ -2,6 +2,8 @@ This is bit enhanced version of simple social-media application( https://github.
 
 Before we start the server, we need to get SSL certificate.SSL certificate is issued by a trusted Certificate Authority (CA). But for our learning purpose we can go with self signed certificate. For creating self signed certificate, you can follow command in src/main/resources/ssl.txt. I have already created it so no need to worry about it now
 
+Also I have resolved n+1 hibernate issue for optimization. i have used modelMapper for generating JSON response.
+
 For our testing we will we using Postman Api(not the web version, there is not option for ssl certification verification)
 
 Though we are using postman api. But if we try GET request in web browser(chrome), it will show untrusted certificate(since self-certificate is not trusted in browser). you can click on advanced button(chrome) and accept the trust. Also when you hit Get URL with http://localhost:8080 it will route to https://localhost:8443 this is not the part of certificate but the spring security where tomcat is routing request to secure port.
@@ -28,7 +30,7 @@ https://localhost:8443/getUserNewFeed/{userId} - userId is integer value
 
 https://localhost:8443/getHomeNewFeed/{userId} - userId is integer value
 
-https://localhost:8443/getfollower/{followeeId} - followeeId is integer value
+https://localhost:8443//getFollowers/{followeeId} - followeeId is integer value
 
 Note - before i provide post request url, i should inform, i have used JWT so until you dont have JWT key you cant use post url. But you are good with GET url without JWT key
 
@@ -77,9 +79,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 which mean it will create table by itself on first run from model class and only change if you change the model class.
 
-I have used BCrypt to store password
-
-Note- i have not used jackson mapper class to convert response into json. passing string in json way formating in response for now. i can implement it in next commit. Also i will resolve n+1 hibernate issue in commit 
+I have used BCrypt to store password 
 
 Happy learning
 

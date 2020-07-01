@@ -48,7 +48,7 @@ public class SocialMediaServiceImplTest {
 	public void testGetUserNewsFeed() throws Exception {
 		User user = new User();
 		when(postRepo.findByUserOrderByDateTimeDesc(user)).thenReturn(PostsTestData.getposts());
-		assertTrue(socialMediaService.getUserNewsFeed(user).contains("post2"));
+		assertTrue(socialMediaService.getUserNewsFeed(user).getPosts().size()>0);
 	}
 	
 	@Test(expected=SocialMediaDAOException.class)
@@ -72,7 +72,7 @@ public class SocialMediaServiceImplTest {
 		User user = new User();
 		user.setFollowers(followers);
 		when(postRepo.findByUserOrderByDateTimeDesc(user)).thenReturn(PostsTestData.getposts());
-		assertTrue(socialMediaService.getHomeNewsFeed(user).contains("post2"));
+		assertTrue(socialMediaService.getHomeNewsFeed(user).getPosts().size()>0);
 	}
 	
 	@Test(expected=SocialMediaDAOException.class)

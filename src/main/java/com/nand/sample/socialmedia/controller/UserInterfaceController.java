@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.nand.sample.socialmedia.domain.Followers;
+import com.nand.sample.socialmedia.domain.Posts;
+import com.nand.sample.socialmedia.domain.Users;
 import com.nand.sample.socialmedia.exception.SocialMediaDAOException;
 import com.nand.sample.socialmedia.exception.SocialMediaRuntimeException;
-import com.nand.sample.socialmedia.model.Post;
 import com.nand.sample.socialmedia.model.User;
 import com.nand.sample.socialmedia.service.SocialMediaService;
 
@@ -149,19 +151,10 @@ public class UserInterfaceController {
 	 * @param followeeId
 	 * @param followerId
 	 */
-	@GetMapping("/getfollower/{followeeId}")
-	public String getfollower(@PathVariable Integer followeeId) {
+	@GetMapping("/getFollowers/{followeeId}")
+	public Followers getfollower(@PathVariable Integer followeeId) {
 		try {
-			User user = this.socialMediaService.getUserByUserID(followeeId);
-			StringBuilder userResponse = new StringBuilder("[");
-			for (User follower : user.getFollowers()) {
-				userResponse.append("{\"followerId\":" + follower.getUserId()
-						+ "\",");
-				userResponse.append("\"followerName\":" + follower.getName()
-						+ "\"},\n");
-			}
-			userResponse.append("]");
-			return userResponse.toString();
+			return this.socialMediaService.getFollowers(followeeId);
 		} catch (SocialMediaDAOException | SocialMediaRuntimeException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"Exception occured in getting user feed - "
@@ -175,7 +168,7 @@ public class UserInterfaceController {
 	 * @param userId
 	 */
 	@GetMapping("/getUserNewFeed/{userId}")
-	public String getUserNewsFeed(@PathVariable Integer userId) {
+	public Posts getUserNewsFeed(@PathVariable Integer userId) {
 		try {
 			User user = this.socialMediaService.getUserByUserID(userId);
 			return this.socialMediaService.getUserNewsFeed(user);
@@ -192,7 +185,7 @@ public class UserInterfaceController {
 	 * @param userId
 	 */
 	@GetMapping("/getHomeNewFeed/{userId}")
-	public String getHomeNewsFeed(@PathVariable Integer userId) {
+	public Posts getHomeNewsFeed(@PathVariable Integer userId) {
 		try {
 			User user = this.socialMediaService.getUserByUserID(userId);
 			return this.socialMediaService.getHomeNewsFeed(user);
@@ -208,32 +201,9 @@ public class UserInterfaceController {
 	 * 
 	 */
 	@GetMapping("/getAllUser")
-	public String getAllUser() {
+	public Users getAllUser() {
 		try {
-			StringBuilder userResponse = new StringBuilder("[");
-			for (User user : this.socialMediaService.getAllUsers()) {
-				userResponse
-						.append("{\"userId\":\"" + user.getUserId() + "\",");
-				userResponse.append("\"Name\":\"" + user.getName() + "\",");
-				userResponse.append("\"Email\":\"" + user.getEmail() + "\",");
-				userResponse.append("\"Posts\":[");
-				for (Post post : user.getPosts()) {
-					userResponse.append("{\"content\":\"" + post.getContent()
-							+ "\",");
-					userResponse.append("\"date\":\"" + post.getDateTime()
-							+ "\"},");
-				}
-				userResponse.append("],\"Followers\":[");
-				for (User follower : user.getFollowers()) {
-					userResponse.append("{\"followerId\":\""
-							+ follower.getUserId() + "\",");
-					userResponse.append("\"followerName\":\""
-							+ follower.getName() + "\"},");
-				}
-				userResponse.append("]}\n");
-			}
-			userResponse.append("]");
-			return userResponse.toString();
+			return this.socialMediaService.getAllUsers();
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"DB Exception - " + ex.getMessage(), ex);
@@ -245,22 +215,9 @@ public class UserInterfaceController {
 	 * 
 	 */
 	@GetMapping("/getAllPost")
-	public String getAllPost() {
+	public Posts getAllPost() {
 		try {
-			StringBuilder postResponse = new StringBuilder("[");
-			for (Post post : this.socialMediaService.getAllPost()) {
-				postResponse
-						.append("{\"postId\":\"" + post.getPostId() + "\",");
-				postResponse.append("\"content\":\"" + post.getContent()
-						+ "\",");
-				postResponse.append("\"Date\":\"" + post.getDateTime() + "\",");
-				postResponse.append("\"UserId\":\""
-						+ post.getUser().getUserId() + "\",");
-				postResponse.append("\"UserName\":\""
-						+ post.getUser().getName() + "\"},");
-			}
-			postResponse.append("]");
-			return postResponse.toString();
+			return this.socialMediaService.getAllPost();
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"DB Exception - " + ex.getMessage(), ex);
